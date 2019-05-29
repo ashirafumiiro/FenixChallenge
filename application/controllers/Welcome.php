@@ -9,12 +9,19 @@ class Welcome extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('Employee_Model');
         $this->load->library('session');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
     }
 
 	public function index()
 	{
 	    if (!isset($_SESSION['id'])){
-	        header("Location: ".base_url('index.php/welcome/login'));
+	        //header("Location: ".base_url('index.php/welcome/login'));
+            $data['title'] = "Login Page";
+            $data['error_info'] = "You must login first";
+            $this->load->view('header', $data);
+            $this->load->view('login', $data);
+            $this->load->view('footer');
 
         }
         else{
@@ -29,8 +36,7 @@ class Welcome extends CI_Controller {
         if (isset($_SESSION['id'])){
             header("Location: ".base_url('index.php'));
         }
-        $this->load->helper('form');
-        $this->load->library('form_validation');
+
         $data['title'] = 'Login Page';
         $data['error_info'] = '';
 
@@ -39,7 +45,7 @@ class Welcome extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE){
             $this->load->view('header', $data);
-            $this->load->view('login');
+            $this->load->view('login', $data);
             $this->load->view('footer');
         }
         else {
@@ -59,7 +65,16 @@ class Welcome extends CI_Controller {
 
     public function withdrawal()
     {
-        
+        if (!isset($_SESSION['id'])) {
+            header("Location: " . base_url('index.php/welcome/login'));
+        }
+
+    }
+
+    public function logout()
+    {
+        $_SESSION = array();
+        header("Location: ".base_url('index.php/welcome/login'));
 	}
 
 }

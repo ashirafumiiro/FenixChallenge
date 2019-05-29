@@ -17,12 +17,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
 	}
-
+/*
 	a {
 		color: #003399;
 		background-color: transparent;
 		font-weight: normal;
 	}
+    */
 
 	h1 {
 		color: #444;
@@ -74,13 +75,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<p>This System allows you to Check your points earned each month.</p>
 
         <p>Employee ID: <?php echo $_SESSION['id']?></p>
-        <p>Number of points: <?php echo $user['points']?></p>
-        <p>Points Accrued: <?php echo $user['points']?></p>
-        <p> Points Used: <?php echo $user['points']?></p>
+        <p>Number of points (Balance): <?php echo ($user['points_accrued']-$user['points_used'])?></p>
+        <p>Points Accrued: <?php echo $user['points_accrued']?></p>
+        <p> Points Used: <?php echo $user['points_used']?></p>
         <hr>
         <h3>Actions</h3>
         <ul>
-            <li><a>Request Withdrawal</a></li>
+            <li><a href="<?php echo base_url("index.php/welcome/withdrawal")?>">Request Withdrawal</a></li>
+            <li><a href="<?php echo base_url("index.php/welcome/logout")?>">Logout</a></li>
         </ul>
 
 	</div>

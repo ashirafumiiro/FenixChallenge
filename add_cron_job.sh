@@ -4,6 +4,6 @@ DIR="$( dirname "$SOURCE" )"
 cd $DIR
 
 crontab -l > /tmp/jobs.txt   #save existing jobs
-echo "0 0 1 * * php index.php CLI_Update" >> /tmp/jobs.txt  #add the desired job for 1st every month
+echo "0 0 1 * * php $(pwd)/index.php CLI_Update" >> /tmp/jobs.txt  #add the desired job for 1st every month
 crontab /tmp/jobs.txt    #import all jobs
 
