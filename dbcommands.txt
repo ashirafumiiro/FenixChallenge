@@ -1,0 +1,2 @@
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON employees.* TO 'admin'@'localhost';
