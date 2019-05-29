@@ -16,7 +16,6 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 	    if (!isset($_SESSION['id'])){
-	        //header("Location: ".base_url('index.php/welcome/login'));
             $data['title'] = "Login Page";
             $data['error_info'] = "You must login first";
             $this->load->view('header', $data);
@@ -68,8 +67,42 @@ class Welcome extends CI_Controller {
         if (!isset($_SESSION['id'])) {
             header("Location: " . base_url('index.php/welcome/login'));
         }
+        else{
+            $user = $this->Employee_Model->get_user2();
+            $data['user'] = $user;
+            $data['error_message'] = '';
+            $data['points'] = '';
+            $data['res'] = '';
+
+            $this->form_validation->set_rules('reason', 'Reason', 'required');
+            $this->form_validation->set_rules('points', 'Points', 'required|numeric');
+            $this->form_validation->set_rules('password', 'Password', 'required');
+
+            if ($this->form_validation->run() === FALSE){  //load form if it din't post
+                $this->load->view('header');
+                $this->load->view('withdraw', $data);
+                $this->load->view('footer');
+            }
+            else {
+                $msg = $this->Employee_Model->withdraw_points();
+                if($msg === "OK"){
+                    header("Location: ".base_url('index.php/welcome'));
+                }
+                else{
+                    $data['points'] = $this->input->post('points');;
+                    $data['res'] = $this->input->post('reason');
+                    $data['error_message'] = $msg;
+                    $this->load->view('header');
+                    $this->load->view('withdraw', $data);
+                    $this->load->view('footer');
+                }
+
+            }
+
+        }
 
     }
+
 
     public function logout()
     {

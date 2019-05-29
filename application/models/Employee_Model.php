@@ -101,4 +101,27 @@ class Employee_Model extends CI_Model {
         return $pt;
     }
 
+    public function withdraw_points()
+    {
+        $message = 'Fail';
+        $user = $this->get_user2();
+        $points = $this->input->post('points');
+        if ($this->input->post('password') !== $user["password"]){
+            return "Invalid password";
+        }
+        elseif ($points > ($user['points_accrued']-$user['points_used'])){
+            return "Insufficient balance";
+        }
+
+        $data = array(
+            'points_used' => $points + $user['points_used']
+        );
+        $this->db->update('employees_table', $data, array('id' => $user['id']));
+        if ($this->db->affected_rows() > 0){
+            $message = 'OK';
+        }
+
+        return $message;
+    }
+
 }
