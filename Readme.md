@@ -3,6 +3,8 @@ This application is developed using codeigniter php framework and tested with ka
 * MariaDB version 15.1 Distrib 10.1.29-MariaDB, for debian-linux-gnu (x86_64)
 * Apache2 version 2.4.34 (Debian)
 
-## code setup
-* Install MariaDB server
-* import database.sql (to be added)
+## How it works
+* import database.sql (to be added if needed)
+* Run Script add_cron_job to enable monthly update in cron table (done for linux). This is enabled using codeigniter CLI
+* Users browse to directory and controller welcom (default) implements the logic
+* For monthly update, CLI_Update controller is used and users can't access URL and a check is made to ensure CLI is used to access the controller
