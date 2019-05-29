@@ -49,6 +49,12 @@ class Employee_Model extends CI_Model {
             echo $id."\tPoints: ".$total_points."\n";
 
             //update database
+            $data = array(
+                'points_accrued' => $points_accrued + $total_points
+            );
+
+
+            $this->db->update('employees_table', $data, array('id' => $id));
 
         }
 
