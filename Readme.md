@@ -13,3 +13,6 @@ This application is developed using codeigniter php framework and tested with ka
 ### Note:
 * A user is able to see the points info (used accrued and balance) when logged in.
 * dbcommands.tx ensures the appropriate user privileges for data access
+
+## Sample
+![alt text](view.png)
